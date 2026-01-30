@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation | ALM Karvaan</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .docs-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .docs-sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+      }
+
+      .docs-sidebar a {
+        display: block;
+        padding: 10px 15px;
+        color: var(--text-muted);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: 0.3s;
+      }
+
+      .docs-sidebar a:hover,
+      .docs-sidebar a.active {
+        color: var(--accent-blue);
+        border-left-color: var(--accent-blue);
+        background: var(--bg-light);
+      }
+
+      .docs-content h2 {
+        font-size: 1.8rem;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: var(--text-dark);
+      }
+
+      .docs-content h3 {
+        font-size: 1.3rem;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        color: var(--text-dark);
+      }
+
+      .code-block {
+        background: var(--bg-dark);
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      .code-block code {
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .docs-container {
+          grid-template-columns: 1fr;
+        }
+
+        .docs-sidebar {
+          position: static;
+        }
+
+        .docs-sidebar {
+          display: flex;
+          gap: 10px;
+          overflow-x: auto;
+          margin-bottom: 30px;
+        }
+
+        .docs-sidebar a {
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-container">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; color: inherit;">
+          <svg
+            class="logo-icon"
+            viewBox="0 0 120 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- Waveform bars -->
+            <g class="waveform-bars">
+              <rect x="8" y="30" width="6" height="20" fill="currentColor" rx="3" class="bar bar-1" />
+              <rect x="20" y="10" width="6" height="60" fill="currentColor" rx="3" class="bar bar-2" />
+              <rect x="32" y="20" width="6" height="40" fill="currentColor" rx="3" class="bar bar-3" />
+              <rect x="44" y="28" width="6" height="24" fill="currentColor" rx="3" class="bar bar-4" />
+              <rect x="56" y="15" width="6" height="50" fill="currentColor" rx="3" class="bar bar-5" />
+              <rect x="68" y="8" width="6" height="64" fill="currentColor" rx="3" class="bar bar-6" />
+              <rect x="80" y="22" width="6" height="36" fill="currentColor" rx="3" class="bar bar-7" />
+              <rect x="92" y="30" width="6" height="20" fill="currentColor" rx="3" class="bar bar-8" />
+            </g>
+          </svg>
+          <span class="logo-text">NoiseMachine</span>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="docs.html" class="nav-link">Docs</a>
+      </div>
+
+      <!-- Actions -->
+      <div id="nav-actions">
+        <button
+          class="dark-mode-toggle"
+          id="darkModeBtn"
+          onclick="toggleDarkMode()"
+          title="Toggle dark mode"
+        >
+          <svg
+            class="sun-icon"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg
+            class="moon-icon"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="btn btn-secondary" onclick="window.location.href='index.html'; showSignup();">
+          Sign Up
+        </button>
+        <button class="btn btn-primary" onclick="window.location.href='index.html'; showLogin();">Login</button>
+      </div>
+    </nav>
+
+    <!-- Documentation Section -->
+    <section style="padding: 60px 20px; background: var(--bg-light);">
+      <div style="max-width: 1400px; margin: 0 auto;">
+        <!-- Header -->
+        <div style="margin-bottom: 50px;">
+          <h1 style="font-size: 2.5rem; margin-bottom: 15px; color: var(--text-dark);">Documentation</h1>
+          <p style="font-size: 1.1rem; color: var(--text-muted);">Learn how to use ALM Karvaan's powerful audio analysis tools</p>
+        </div>
+
+        <!-- Docs Layout -->
+        <div class="docs-container">
+          <!-- Sidebar Navigation -->
+          <div class="docs-sidebar">
+            <a href="#getting-started" class="doc-link active" onclick="scrollToSection('getting-started')">Getting Started</a>
+            <a href="#installation" class="doc-link" onclick="scrollToSection('installation')">Installation</a>
+            <a href="#api-reference" class="doc-link" onclick="scrollToSection('api-reference')">API Reference</a>
+            <a href="#examples" class="doc-link" onclick="scrollToSection('examples')">Examples</a>
+            <a href="#faq" class="doc-link" onclick="scrollToSection('faq')">FAQ</a>
+            <a href="#support" class="doc-link" onclick="scrollToSection('support')">Support</a>
+          </div>
+
+          <!-- Main Content -->
+          <div class="docs-content">
+            <!-- Getting Started -->
+            <section id="getting-started">
+              <h2>Getting Started</h2>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Welcome to ALM Karvaan! This guide will help you get up and running with our audio intelligence platform. Whether you're a developer integrating our API or a user exploring our web interface, you'll find everything you need here.
+              </p>
+              <h3>Prerequisites</h3>
+              <ul style="color: var(--text-muted); line-height: 1.8;">
+                <li>A valid ALM Karvaan account</li>
+                <li>API credentials (for developers)</li>
+                <li>Modern web browser or Python 3.8+</li>
+              </ul>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation">
+              <h2>Installation</h2>
+              <h3>Web Interface</h3>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Simply navigate to <strong>app.almkarvaan.com</strong> and log in with your credentials. No installation required!
+              </p>
+              <h3>Python SDK</h3>
+              <p style="color: var(--text-muted); margin-bottom: 15px;">Install the ALM Karvaan Python SDK:</p>
+              <div class="code-block">
+                <code>pip install almkarvaan</code>
+              </div>
+            </section>
+
+            <!-- API Reference -->
+            <section id="api-reference">
+              <h2>API Reference</h2>
+              <h3>Audio Analysis Endpoint</h3>
+              <p style="color: var(--text-muted); line-height: 1.8;">Analyze audio files for noise, emotion, and environmental context.</p>
+              <div class="code-block">
+                <code>POST /api/v1/analyze<br/>Content-Type: multipart/form-data<br/><br/>Parameters:<br/>- audio_file: Audio file (MP3, WAV, FLAC)<br/>- features: ['noise', 'emotion', 'environment']</code>
+              </div>
+              <h3>Response Format</h3>
+              <div class="code-block">
+                <code>{<br/>  "status": "success",<br/>  "analysis": {<br/>    "noise_level": 45,<br/>    "emotion": "neutral",<br/>    "environment": "office"<br/>  },<br/>  "timestamp": "2026-01-30T10:00:00Z"<br/>}</code>
+              </div>
+            </section>
+
+            <!-- Examples -->
+            <section id="examples">
+              <h2>Examples</h2>
+              <h3>Python Example</h3>
+              <div class="code-block">
+                <code>import almkarvaan<br/><br/>client = almkarvaan.Client(api_key="YOUR_API_KEY")<br/>result = client.analyze_audio("sample.mp3")<br/>print(result.noise_level)<br/>print(result.emotion)</code>
+              </div>
+              <h3>JavaScript Example</h3>
+              <div class="code-block">
+                <code>const alm = require('almkarvaan');<br/><br/>const result = await alm.analyzeAudio('sample.mp3');<br/>console.log(result.noiseLevel);<br/>console.log(result.emotion);</code>
+              </div>
+            </section>
+
+            <!-- FAQ -->
+            <section id="faq">
+              <h2>Frequently Asked Questions</h2>
+              <h3>What audio formats are supported?</h3>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                We support MP3, WAV, FLAC, OGG, and AAC formats. Maximum file size is 500MB.
+              </p>
+              <h3>How long does analysis take?</h3>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Analysis typically completes in 5-30 seconds depending on audio length and selected features.
+              </p>
+              <h3>Is my audio data secure?</h3>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Yes! All audio data is encrypted in transit and at rest. We never store or share your data with third parties.
+              </p>
+            </section>
+
+            <!-- Support -->
+            <section id="support">
+              <h2>Support</h2>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Need help? We're here for you!
+              </p>
+              <ul style="color: var(--text-muted); line-height: 1.8;">
+                <li>📧 Email: <strong>support@almkarvaan.com</strong></li>
+                <li>💬 Discord: Join our community server</li>
+                <li>📖 Documentation: Visit our knowledge base</li>
+                <li>🐛 Bug Reports: GitHub Issues</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-dark); color: var(--text-muted); padding: 40px 20px; text-align: center; border-top: 1px solid var(--border);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p>&copy; 2026 ALM Karvaan. All rights reserved.</p>
+        <div style="margin-top: 20px;">
+          <a href="#" style="color: var(--accent-blue); text-decoration: none; margin: 0 15px;">Privacy Policy</a>
+          <a href="#" style="color: var(--accent-blue); text-decoration: none; margin: 0 15px;">Terms of Service</a>
+          <a href="#" style="color: var(--accent-blue); text-decoration: none; margin: 0 15px;">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Dark Mode Toggle
+      function toggleDarkMode() {
+        const html = document.documentElement;
+        const isDarkMode = html.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", isDarkMode);
+      }
+
+      // Initialize Dark Mode on Page Load
+      document.addEventListener("DOMContentLoaded", function () {
+        const isDarkMode = localStorage.getItem("darkMode") === "true";
+        if (isDarkMode) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      });
+
+      function scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Update active link
+          document.querySelectorAll('.doc-link').forEach(link => {
+            link.classList.remove('active');
+          });
+          event.target.classList.add('active');
+        }
+      }
+
+      function showSignup() {
+        alert("Please use the sign up button to create an account");
+      }
+
+      function showLogin() {
+        alert("Please use the login button to sign in");
+      }
+    </script>
+  </body>
+</html>

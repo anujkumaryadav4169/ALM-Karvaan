@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About ALM | Smart Audio Intelligence</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* About Page Specific Styles */
+      .about-hero {
+        padding: 120px 20px 80px;
+        background: linear-gradient(135deg, rgba(0, 102, 255, 0.05), rgba(255, 107, 107, 0.05));
+        text-align: center;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .about-hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: var(--text-dark);
+        margin-bottom: 20px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .about-hero p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.8;
+      }
+
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .section-block {
+        padding: 100px 0;
+        border-bottom: 1px solid var(--border);
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .section-block:last-child {
+        border-bottom: none;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        color: var(--text-dark);
+        margin-bottom: 50px;
+        font-weight: 800;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent-blue), #ff6b6b);
+        border-radius: 2px;
+      }
+
+      /* Mission Section */
+      .mission-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .mission-text {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        line-height: 2;
+        max-width: 700px;
+      }
+
+      /* Why Choose Us Cards */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .feature-card {
+        padding: 40px;
+        background: var(--bg-light);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 102, 255, 0.15);
+        border-color: var(--accent-blue);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .feature-card p {
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      /* Team Section */
+      .team-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+
+      .team-intro-text {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        line-height: 2;
+      }
+
+      .team-image {
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(255, 107, 107, 0.1));
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--border);
+        font-size: 5rem;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+      }
+
+      .team-member-card {
+        text-align: center;
+        padding: 40px 30px;
+        background: var(--bg-light);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .team-member-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 102, 255, 0.15);
+        border-color: var(--accent-blue);
+      }
+
+      .member-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-blue), #0052cc);
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: white;
+      }
+
+      .member-name {
+        font-size: 1.2rem;
+        color: var(--text-dark);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .member-role {
+        color: var(--accent-blue);
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+
+      .member-bio {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: linear-gradient(135deg, var(--accent-blue), #0052cc);
+        padding: 80px;
+        border-radius: 16px;
+        color: white;
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      .cta-section h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 20px;
+        font-weight: 800;
+      }
+
+      .cta-section p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        opacity: 0.95;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-button {
+        background: white;
+        color: var(--accent-blue);
+        padding: 14px 40px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: var(--font);
+      }
+
+      .cta-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Footer */
+      footer {
+        background: var(--bg-dark);
+        color: var(--text-muted);
+        padding: 60px 20px 40px;
+        text-align: center;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-links {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: 0.3s;
+        font-weight: 600;
+      }
+
+      .footer-links a:hover {
+        opacity: 0.8;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .about-hero {
+          padding: 80px 20px 60px;
+        }
+
+        .about-hero h1 {
+          margin-bottom: 15px;
+        }
+
+        .section-block {
+          padding: 60px 0;
+        }
+
+        .team-intro {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .team-image {
+          height: 300px;
+        }
+
+        .cta-section {
+          padding: 60px 30px;
+          margin-top: 80px;
+        }
+
+        .footer-links {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .mission-text {
+          font-size: 1rem;
+          line-height: 1.8;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="logo-container">
+        <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; color: inherit;">
+          <svg
+            class="logo-icon"
+            viewBox="0 0 120 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g class="waveform-bars">
+              <rect x="8" y="30" width="6" height="20" fill="currentColor" rx="3" class="bar bar-1" />
+              <rect x="20" y="10" width="6" height="60" fill="currentColor" rx="3" class="bar bar-2" />
+              <rect x="32" y="20" width="6" height="40" fill="currentColor" rx="3" class="bar bar-3" />
+              <rect x="44" y="28" width="6" height="24" fill="currentColor" rx="3" class="bar bar-4" />
+              <rect x="56" y="15" width="6" height="50" fill="currentColor" rx="3" class="bar bar-5" />
+              <rect x="68" y="8" width="6" height="64" fill="currentColor" rx="3" class="bar bar-6" />
+              <rect x="80" y="22" width="6" height="36" fill="currentColor" rx="3" class="bar bar-7" />
+              <rect x="92" y="30" width="6" height="20" fill="currentColor" rx="3" class="bar bar-8" />
+            </g>
+          </svg>
+          <span class="logo-text">NoiseMachine</span>
+        </a>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="docs.html" class="nav-link">Docs</a>
+      </div>
+
+      <div id="nav-actions">
+        <button class="dark-mode-toggle" id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle dark mode">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="btn btn-secondary" onclick="navigateToHome('signup')">Sign Up</button>
+        <button class="btn btn-primary" onclick="navigateToHome('login')">Login</button>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="section-container">
+        <h1>About Us</h1>
+        <p>Transforming audio analysis with intelligent machine learning technology</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="section-container">
+      <!-- Mission Section -->
+      <section class="section-block">
+        <h2 class="section-title">Our Mission</h2>
+        <div class="mission-content">
+          <p class="mission-text">
+            At NoiseMachine, we believe that every sound tells a story. Our mission is to provide cutting-edge audio intelligence tools that empower professionals, researchers, and creators to understand, analyze, and extract meaningful insights from audio data. We're committed to making advanced audio processing accessible to everyone, regardless of their technical background.
+          </p>
+        </div>
+      </section>
+
+      <!-- Why Choose Us Section -->
+      <section class="section-block">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="cards-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Advanced Technology</h3>
+            <p>Built with state-of-the-art machine learning models for accurate, real-time audio analysis and processing.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Process audio files in seconds with our optimized algorithms and cloud infrastructure.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure & Private</h3>
+            <p>Your audio data is encrypted and never shared. Enterprise-grade security for peace of mind.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section -->
+      <section class="section-block">
+        <h2 class="section-title">Our Team</h2>
+        
+        <div class="team-intro">
+          <div>
+            <p class="team-intro-text">
+              Our dedicated team consists of audio engineers, machine learning specialists, and product designers passionate about revolutionizing audio intelligence. With decades of combined experience in signal processing, AI, and software engineering, we're building the future of audio technology. We're driven by curiosity, innovation, and a commitment to excellence.
+            </p>
+          </div>
+          <div class="team-image">👥</div>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-member-card">
+            <div class="member-avatar">👨‍💼</div>
+            <div class="member-name">MD. Aadil Ansari</div>
+            <div class="member-role">Chief Executive Officer</div>
+            <p class="member-bio">Visionary leader with 15+ years in audio tech. Passionate about making AI accessible.</p>
+          </div>
+
+          <div class="team-member-card">
+            <div class="member-avatar">👩‍🔬</div>
+            <div class="member-name">Aditiya yadav</div>
+            <div class="member-role">Head of AI & Research</div>
+            <p class="member-bio">PhD in Signal Processing. Specializes in deep learning models for audio analysis.</p>
+          </div>
+
+          <div class="team-member-card">
+            <div class="member-avatar">👨‍💻</div>
+            <div class="member-name">Aklavya yadav</div>
+            <div class="member-role">Lead Engineer</div>
+            <p class="member-bio">Full-stack engineer building scalable audio processing infrastructure.</p>
+          </div>
+
+          <div class="team-member-card">
+            <div class="member-avatar">👩‍🎨</div>
+            <div class="member-name">Anuj Kumar yadav</div>
+            <div class="member-role">Product & Design</div>
+            <p class="member-bio">User-focused designer creating intuitive experiences for complex audio tasks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to Transform Your Audio?</h2>
+        <p>Join thousands of professionals using NoiseMachine to analyze, process, and understand audio like never before.</p>
+        <button class="cta-button" onclick="navigateToHome('signup')">Get Started Today</button>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2026 NoiseMachine. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function toggleDarkMode() {
+        const html = document.documentElement;
+        const isDarkMode = html.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", isDarkMode);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const isDarkMode = localStorage.getItem("darkMode") === "true";
+        if (isDarkMode) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      });
+
+      function navigateToHome(action) {
+        window.location.href = "index.html";
+        setTimeout(() => {
+          if (action === "signup") {
+            document.querySelector('button[onclick="showSignup()"]')?.click();
+          } else if (action === "login") {
+            document.querySelector('button[onclick="showLogin()"]')?.click();
+          }
+        }, 100);
+      }
+    </script>
+  </body>
+</html>

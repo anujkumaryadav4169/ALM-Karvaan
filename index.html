@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -99,10 +100,10 @@
 
       <!-- Navigation Links -->
       <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
         <a href="features.html" class="nav-link">Features</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#docs" class="nav-link">Docs</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="docs.html" class="nav-link">Docs</a>
       </div>
 
       <!-- Actions -->
@@ -221,7 +222,7 @@
                     color: var(--text-dark);
                     text-align: left;
                   "
-                  >Full Name</label
+                  >Username</label
                 >
                 <input
                   type="text"
@@ -331,6 +332,7 @@
                 "
                 onmouseover="this.style.background = '#0052cc'"
                 onmouseout="this.style.background = 'var(--accent-blue)'"
+                onclick="showSignupOTP()"
               >
                 Sign Up Now!
               </button>
@@ -381,6 +383,70 @@
                 </p>
               </div>
             </div>
+
+            <!-- OTP Verification Box for Signup -->
+            <div class="signup-box" id="signup-otp-box" style="display: none;">
+              <h3 style="margin-bottom: 10px; color: var(--text-dark)">
+                Verify Your Email
+              </h3>
+              <p
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.9rem;
+                  margin-bottom: 25px;
+                "
+              >
+                Enter the 6-digit OTP sent to your email
+              </p>
+
+              <form onsubmit="handleSignupOTPSubmit(event)">
+                <div
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    justify-content: space-between;
+                    margin-bottom: 25px;
+                  "
+                >
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                  <input type="text" class="signup-otp-input" maxlength="1" inputmode="numeric" onkeyup="moveToNextOTP(this)" style="width: 45px; height: 45px; font-size: 1.2rem; text-align: center; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; transition: 0.3s;" />
+                </div>
+
+                <button type="submit" style="width: 100%; padding: 12px 20px; background: var(--accent-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-bottom: 12px;" onmouseover="this.style.background = '#0052cc'" onmouseout="this.style.background = 'var(--accent-blue)'">
+                  Verify OTP
+                </button>
+              </form>
+
+              <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+                Didn't receive OTP?
+                <span id="signup-timer" style="color: var(--accent-blue); cursor: pointer; font-weight: 600;" onclick="resendSignupOTP()">Resend in 60s</span>
+              </p>
+
+              <button type="button" style="width: 100%; padding: 12px 20px; margin-top: 12px; color: var(--accent-blue); background: transparent; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s;" onclick="goBackToSignup()">
+                Back
+              </button>
+            </div>
+
+            <!-- Success Message Box -->
+            <div class="signup-box" id="signup-success-box" style="display: none;">
+              <div style="text-align: center; padding: 20px 0;">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
+                  <circle cx="30" cy="30" r="30" fill="var(--accent-blue)" />
+                  <path d="M24 30L27.5 33.5L36 24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3 style="margin-bottom: 10px; color: var(--text-dark)">
+                  Registration Successful!
+                </h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
+                  Your account has been created successfully. Redirecting to sign in...
+                </p>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -1226,6 +1292,185 @@
         document
           .querySelectorAll(".otp-input")
           .forEach((input) => (input.value = ""));
+      }
+
+      // Signup OTP Functions
+      let signupOTPTimer = null;
+      let currentSignupEmail = null;
+
+      function showSignupOTP() {
+        const usernameInput = document.querySelector('.hero-right .signup-box input[type="text"]');
+        const emailInput = document.querySelector('.hero-right .signup-box input[type="email"]');
+        const passwordInput = document.querySelector('.hero-right .signup-box input[type="password"]');
+        
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username || !email || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        if (!email.includes("@")) {
+          alert("Please enter a valid email");
+          return;
+        }
+
+        fetch('http://localhost:5000/api/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            currentSignupEmail = email;
+            document.querySelector('.hero-right .signup-box').style.display = "none";
+            document.getElementById("signup-otp-box").style.display = "block";
+            
+            startSignupOTPTimer();
+            document.querySelector("#signup-otp-box .signup-otp-input").focus();
+          } else {
+            alert(data.message || "Signup failed");
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Error connecting to server. Make sure backend is running on port 5000");
+        });
+      }
+
+      function startSignupOTPTimer() {
+        let seconds = 60;
+        const timerElement = document.getElementById("signup-timer");
+
+        clearSignupOTPTimer();
+
+        signupOTPTimer = setInterval(() => {
+          seconds--;
+          timerElement.textContent = `Resend in ${seconds}s`;
+
+          if (seconds === 0) {
+            clearSignupOTPTimer();
+            timerElement.textContent = "Resend";
+            timerElement.style.cursor = "pointer";
+          }
+        }, 1000);
+      }
+
+      function clearSignupOTPTimer() {
+        if (signupOTPTimer) {
+          clearInterval(signupOTPTimer);
+          signupOTPTimer = null;
+        }
+      }
+
+      function resendSignupOTP() {
+        const timerElement = document.getElementById("signup-timer");
+        if (timerElement.textContent !== "Resend") {
+          return;
+        }
+
+        if (!currentSignupEmail) {
+          alert("Please sign up first");
+          return;
+        }
+
+        fetch('http://localhost:5000/api/resend-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: currentSignupEmail
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("OTP resent to your email!");
+            startSignupOTPTimer();
+          } else {
+            alert(data.message || "Failed to resend OTP");
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Error connecting to server");
+        });
+      }
+
+      function handleSignupOTPSubmit(event) {
+        event.preventDefault();
+
+        const otpInputs = document.querySelectorAll("#signup-otp-box .signup-otp-input");
+        const otp = Array.from(otpInputs)
+          .map((input) => input.value)
+          .join("");
+
+        if (otp.length !== 6 || !/^[0-9]{6}$/.test(otp)) {
+          alert("Please enter a valid 6-digit OTP");
+          return;
+        }
+
+        if (!currentSignupEmail) {
+          alert("Please sign up first");
+          return;
+        }
+
+        fetch('http://localhost:5000/api/verify-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: currentSignupEmail,
+            otp: otp
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showSignupSuccess();
+          } else {
+            alert(data.message || "OTP verification failed");
+            otpInputs.forEach(input => input.value = "");
+            otpInputs[0].focus();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Error connecting to server");
+        });
+      }
+
+      function showSignupSuccess() {
+        document.getElementById("signup-otp-box").style.display = "none";
+        document.getElementById("signup-success-box").style.display = "block";
+        clearSignupOTPTimer();
+
+        setTimeout(() => {
+          document.getElementById("signup-success-box").style.display = "none";
+          document.querySelector('.hero-right .signup-box').style.display = "block";
+          showLogin();
+        }, 2500);
+      }
+
+      function goBackToSignup() {
+        document.getElementById("signup-otp-box").style.display = "none";
+        document.querySelector('.hero-right .signup-box').style.display = "block";
+        clearSignupOTPTimer();
+        document
+          .querySelectorAll("#signup-otp-box .signup-otp-input")
+          .forEach((input) => (input.value = ""));
+        currentSignupEmail = null;
       }
     </script>
   </body>
