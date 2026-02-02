@@ -1021,6 +1021,42 @@
 
       // Initialize dashboard
       document.addEventListener('DOMContentLoaded', function() {
+        // Load user data
+        const userName = localStorage.getItem('userName') || 'John Doe';
+        const userEmail = localStorage.getItem('userEmail') || 'john.doe@example.com';
+        
+        // Update profile name in nav
+        const profileNames = document.querySelectorAll('.profile-name');
+        profileNames.forEach(name => name.textContent = userName);
+        
+        // Update welcome message
+        const welcomeMessage = document.querySelector('h1');
+        if (welcomeMessage && welcomeMessage.textContent.includes('John')) {
+          welcomeMessage.textContent = `Welcome back, ${userName.split(' ')[0]}! 👋`;
+        }
+        
+        // Update profile info in settings
+        const profileNameInputs = document.querySelectorAll('input[value="John Doe"]');
+        profileNameInputs.forEach(input => input.value = userName);
+        
+        const profileEmailInputs = document.querySelectorAll('input[value="john.doe@example.com"]');
+        profileEmailInputs.forEach(input => input.value = userEmail);
+        
+        // Update profile display names
+        const displayNames = document.querySelectorAll('h2, h4');
+        displayNames.forEach(name => {
+          if (name.textContent === 'John Doe') {
+            name.textContent = userName;
+          }
+        });
+        
+        const displayEmails = document.querySelectorAll('p');
+        displayEmails.forEach(email => {
+          if (email.textContent === 'john.doe@example.com') {
+            email.textContent = userEmail;
+          }
+        });
+
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
         if (isDarkMode) {
           document.documentElement.classList.add('dark-mode');

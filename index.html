@@ -1322,12 +1322,15 @@
           .join("");
 
         if (otp.length === 6 && /^[0-9]{6}$/.test(otp)) {
-          // OTP verified - redirect to Audio Playground
+          // OTP verified - redirect to Dashboard
+          const email = document.getElementById("email-input").value;
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("userName", "John"); // Default username for demo
           document.getElementById("login-form").reset();
           resetCaptcha();
           clearOTPTimer();
           otpInputs.forEach((input) => (input.value = ""));
-          window.location.href = "audio-playground.html";
+          window.location.href = "dashboard.html";
         } else {
           alert("Please enter a valid 6-digit OTP");
         }
