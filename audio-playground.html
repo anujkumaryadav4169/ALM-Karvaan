@@ -74,6 +74,7 @@
             <input
               type="file"
               id="file-input"
+              accept="audio/*"
               hidden
               onchange="handleProcess(this)"
             />
@@ -151,6 +152,24 @@
     </section>
 
     <script>
+      <script>
+        function validateAndProcess(input) {
+          const file = input.files[0];
+        
+          // If no file selected
+          if (!file) return;
+        
+          // ❌ Block non-audio files
+          if (!file.type.startsWith("audio/")) {
+            alert("Only audio files are allowed!");
+            input.value = "";   // reset file input
+            return;
+          }
+        
+          // ✅ Valid audio → continue existing logic
+          handleProcess(input);
+        }
+        </script>
       document.addEventListener("DOMContentLoaded", function () {
         const isDarkMode = localStorage.getItem("darkMode") === "true";
         if (isDarkMode) {
@@ -178,3 +197,4 @@
     </script>
   </body>
 </html>
+
