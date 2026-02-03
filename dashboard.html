@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- //header file -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -1004,7 +1005,7 @@
           </svg>
           Settings
         </button>
-        <button class="profile-menu-item">
+        <button class="profile-menu-item" onclick="logout()">
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
             <polyline points="16,17 21,12 16,7"></polyline>
@@ -1021,6 +1022,14 @@
 
       // Initialize dashboard
       document.addEventListener('DOMContentLoaded', function() {
+        // Check if user is logged in
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+          // Redirect to home page if not logged in
+          window.location.href = 'index.html';
+          return;
+        }
+
         // Load user data
         const userName = localStorage.getItem('userName') || 'John Doe';
         const userEmail = localStorage.getItem('userEmail') || 'john.doe@example.com';
@@ -1170,6 +1179,19 @@
           alert('Settings saved successfully!');
         });
       });
+
+      // Logout function
+      function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+          // Clear current session but keep registered users
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('userName');
+          localStorage.removeItem('userEmail');
+          
+          // Redirect to home page
+          window.location.href = 'index.html';
+        }
+      }
     </script>
   </body>
 </html>
