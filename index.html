@@ -1304,6 +1304,26 @@
           return;
         }
 
+        // Check if user exists in localStorage
+        const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+        const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+        if (!user) {
+          alert("No account found with this email. Please sign up first.");
+          hideLogin();
+          // Scroll to signup form
+          document.querySelector('.hero-right .signup-box').scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+
+        // Verify password
+        if (user.password !== password) {
+          alert("Incorrect password. Please try again.");
+          document.getElementById("password-input").value = "";
+          document.getElementById("password-input").focus();
+          return;
+        }
+
         // All validations passed - Transition to OTP stage
         document.getElementById("login-stage").classList.add("hidden");
         document.getElementById("otp-stage").classList.remove("hidden");
@@ -1322,10 +1342,23 @@
           .join("");
 
         if (otp.length === 6 && /^[0-9]{6}$/.test(otp)) {
-          // OTP verified - redirect to Dashboard
+          // OTP verified - Get user data and redirect to Dashboard
           const email = document.getElementById("email-input").value;
-          localStorage.setItem("userEmail", email);
-          localStorage.setItem("userName", "John"); // Default username for demo
+          const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+          const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+          
+          if (user) {
+            // Store current session
+            localStorage.setItem("currentUser", JSON.stringify({
+              email: user.email,
+              username: user.username,
+              loginTime: new Date().toISOString()
+            }));
+            
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userName", user.username);
+          }
+          
           document.getElementById("login-form").reset();
           resetCaptcha();
           clearOTPTimer();
@@ -1387,6 +1420,26 @@
           document.getElementById("signup-password").focus();
           return;
         }
+
+        // Check if user already exists
+        const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+        const existingUser = users.find(user => user.email.toLowerCase() === email.toLowerCase());
+        
+        if (existingUser) {
+          alert("An account with this email already exists. Please login instead.");
+          return;
+        }
+
+        // Store user data in localStorage
+        const newUser = {
+          username: username,
+          email: email,
+          password: password, // In production, this should be hashed
+          registeredAt: new Date().toISOString()
+        };
+        
+        users.push(newUser);
+        localStorage.setItem("registeredUsers", JSON.stringify(users));
 
         // All validations passed - show success
         showSignupSuccess();
