@@ -387,34 +387,6 @@
               </div>
             </div>
 
-            <!-- Signup Success Screen with Overlay -->
-            <div id="signup-success-overlay" class="success-overlay" style="display: none;">
-              <div class="success-card">
-                <!-- Animated Checkmark Icon -->
-                <div class="success-icon">
-                  <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                
-                <!-- Success Message -->
-                <h2 class="success-heading">Successfully Registered!</h2>
-                
-                <!-- Subtitle -->
-                <p class="success-subtitle">Welcome to NoiseMachine</p>
-                
-                <!-- Description -->
-                <p class="success-description">
-                  Your account is ready. Log in now to explore amazing audio features.
-                </p>
-                
-                <!-- Primary CTA Button -->
-                <button class="success-button" onclick="goToLogin()">
-                  Login to Continue
-                </button>
-              </div>
-            </div>
-
             <!-- OTP Verification Box for Signup -->
             <div class="signup-box" id="signup-otp-box" style="display: none;">
               <h3 style="margin-bottom: 10px; color: var(--text-dark)">
@@ -460,22 +432,6 @@
               <button type="button" style="width: 100%; padding: 12px 20px; margin-top: 12px; color: var(--accent-blue); background: transparent; border: 1px solid var(--border); border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s;" onclick="goBackToSignup()">
                 Back
               </button>
-            </div>
-
-            <!-- Success Message Box -->
-            <div class="signup-box" id="signup-success-box" style="display: none;">
-              <div style="text-align: center; padding: 20px 0;">
-                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
-                  <circle cx="30" cy="30" r="30" fill="var(--accent-blue)" />
-                  <path d="M24 30L27.5 33.5L36 24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <h3 style="margin-bottom: 10px; color: var(--text-dark)">
-                  Registration Successful!
-                </h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
-                  Your account has been created successfully. Redirecting to sign in...
-                </p>
-              </div>
             </div>
 
           </div>
@@ -1392,23 +1348,6 @@
         showSignupSuccess();
       }
 
-      // Go to login from success screen
-      function goToLogin() {
-        // Hide success overlay
-        document.getElementById("signup-success-overlay").style.display = "none";
-        document.querySelector('.hero-right .signup-box').style.display = "block";
-        
-        // Clear form fields
-        document.getElementById("signup-username").value = "";
-        document.getElementById("signup-email").value = "";
-        document.getElementById("signup-password").value = "";
-
-        // Show login modal
-        setTimeout(() => {
-          showLogin();
-        }, 300);
-      }
-
       function showSignupOTP() {
         const usernameInput = document.querySelector('.hero-right .signup-box input[type="text"]');
         const emailInput = document.querySelector('.hero-right .signup-box input[type="email"]');
@@ -1428,6 +1367,11 @@
           return;
         }
 
+        // Show loading state - dim the signup form
+        const signupBox = document.querySelector('.hero-right .signup-box');
+        signupBox.style.opacity = "0.5";
+        signupBox.style.pointerEvents = "none";
+
         fetch('http://localhost:5000/api/signup', {
           method: 'POST',
           headers: {
@@ -1443,18 +1387,32 @@
         .then(data => {
           if (data.success) {
             currentSignupEmail = email;
-            document.querySelector('.hero-right .signup-box').style.display = "none";
-            document.getElementById("signup-otp-box").style.display = "block";
+            // Smooth transition: fade out signup, fade in OTP
+            signupBox.style.display = "none";
+            const otpBox = document.getElementById("signup-otp-box");
+            otpBox.style.opacity = "0";
+            otpBox.style.display = "block";
+            
+            // Trigger reflow and animate in
+            setTimeout(() => {
+              otpBox.style.opacity = "1";
+            }, 10);
             
             startSignupOTPTimer();
-            document.querySelector("#signup-otp-box .signup-otp-input").focus();
+            setTimeout(() => {
+              document.querySelector("#signup-otp-box .signup-otp-input").focus();
+            }, 100);
           } else {
             alert(data.message || "Signup failed");
+            signupBox.style.opacity = "1";
+            signupBox.style.pointerEvents = "auto";
           }
         })
         .catch(error => {
           console.error('Error:', error);
           alert("Error connecting to server. Make sure backend is running on port 5000");
+          signupBox.style.opacity = "1";
+          signupBox.style.pointerEvents = "auto";
         });
       }
 
@@ -1536,6 +1494,11 @@
           return;
         }
 
+        // Disable UI immediately to prevent further interaction
+        const otpBox = document.getElementById("signup-otp-box");
+        otpBox.style.pointerEvents = "none";
+        otpBox.style.opacity = "0.6";
+
         fetch('http://localhost:5000/api/verify-otp', {
           method: 'POST',
           headers: {
@@ -1549,9 +1512,12 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            showSignupSuccess();
+            // Bypass all DOM manipulation - direct redirect
+            window.location.href = "success.html";
           } else {
             alert(data.message || "OTP verification failed");
+            otpBox.style.pointerEvents = "auto";
+            otpBox.style.opacity = "1";
             otpInputs.forEach(input => input.value = "");
             otpInputs[0].focus();
           }
@@ -1559,18 +1525,30 @@
         .catch(error => {
           console.error('Error:', error);
           alert("Error connecting to server");
+          otpBox.style.pointerEvents = "auto";
+          otpBox.style.opacity = "1";
         });
       }
 
       function showSignupSuccess() {
-        document.querySelector('.hero-right .signup-box').style.display = "none";
-        document.getElementById("signup-success-overlay").style.display = "flex";
+        // This is a fallback - direct redirect is handled in handleSignupOTPSubmit
         clearSignupOTPTimer();
+        window.location.href = "success.html";
       }
 
       function goBackToSignup() {
-        document.getElementById("signup-otp-box").style.display = "none";
-        document.querySelector('.hero-right .signup-box').style.display = "block";
+        const otpBox = document.getElementById("signup-otp-box");
+        const signupBox = document.querySelector('.hero-right .signup-box');
+        
+        // Smooth transition back
+        otpBox.style.opacity = "0";
+        setTimeout(() => {
+          otpBox.style.display = "none";
+          signupBox.style.display = "block";
+          signupBox.style.opacity = "1";
+          signupBox.style.pointerEvents = "auto";
+        }, 300);
+        
         clearSignupOTPTimer();
         document
           .querySelectorAll("#signup-otp-box .signup-otp-input")

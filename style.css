@@ -419,7 +419,8 @@ nav {
     width: 100%;
     max-width: 380px;
     animation: slideInRight 0.8s ease-out 0.2s backwards;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    opacity: 1;
 }
 
 .signup-box input {

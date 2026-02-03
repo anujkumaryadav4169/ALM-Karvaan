@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successfully Registered | NoiseMachine</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(180deg, #f8f7fc 0%, #f0eefd 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative background circles */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: #b3c6f0;
+            top: -100px;
+            right: -80px;
+            box-shadow: 0 0 60px rgba(179, 198, 240, 0.4);
+        }
+
+        .circle-2 {
+            width: 250px;
+            height: 250px;
+            background: #c4d4f0;
+            bottom: 50px;
+            right: 100px;
+            box-shadow: 0 0 50px rgba(196, 212, 240, 0.3);
+        }
+
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            background: #a8c0ed;
+            top: 200px;
+            left: -50px;
+            opacity: 0.2;
+            box-shadow: 0 0 40px rgba(168, 192, 237, 0.2);
+        }
+
+        /* Main container */
+        .success-container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            padding: 40px 20px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Checkmark icon */
+        .checkmark-container {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #5B4FD4 0%, #7366E3 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(91, 79, 212, 0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        .checkmark svg {
+            width: 56px;
+            height: 56px;
+            stroke: #ffffff;
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 44px;
+            font-weight: 800;
+            color: #0f0f1e;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        /* Subheading */
+        .welcome-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #7a8ba8;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Description */
+        .description {
+            font-size: 16px;
+            color: #7a8ba8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* Welcome banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, #E8E6F8 0%, #F0EDF9 100%);
+            padding: 18px 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #5B4FD4;
+            letter-spacing: 0.3px;
+        }
+
+        /* Login button */
+        .login-btn {
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #5B4FD4 0%, #7366E3 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(91, 79, 212, 0.2);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(91, 79, 212, 0.35);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .welcome-text {
+                font-size: 20px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .circle-1 {
+                width: 200px;
+                height: 200px;
+                top: -80px;
+                right: -60px;
+            }
+
+            .circle-2 {
+                width: 180px;
+                height: 180px;
+                bottom: 30px;
+                right: 50px;
+            }
+
+            .circle-3 {
+                width: 150px;
+                height: 150px;
+                left: -40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .welcome-text {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 13px;
+                margin-bottom: 30px;
+            }
+
+            .checkmark {
+                width: 60px;
+                height: 60px;
+            }
+
+            .checkmark svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .login-btn {
+                padding: 12px 36px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative background circles -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+
+    <!-- Success content -->
+    <div class="success-container">
+        <!-- Checkmark icon -->
+        <div class="checkmark-container">
+            <div class="checkmark">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Heading -->
+        <h1>Successfully Registered!</h1>
+
+        <!-- Description -->
+        <p class="description">Your account has been created. Welcome to the platform!</p>
+
+        <!-- Welcome banner -->
+        <div class="welcome-banner">
+            ✨ Welcome to NoiseMachine
+        </div>
+
+        <!-- Login button -->
+        <a href="index.html" class="login-btn">Login to Continue</a>
+    </div>
+</body>
+</html>
